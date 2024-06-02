@@ -4,9 +4,9 @@ This project is a demo project on how semantic search works - the data is update
 
 # TODO
 
--   [ ] Setup mongodb model
+-   [x] Setup mongodb model
+-   [x] write a service to connect with monngo
 -   [ ] Setup chroma db
--   [ ] write a service to connect with monngo
 -   [ ] setup UI
 -   [ ] setup github - railway deployment
 -   [ ] Deploy on a subdomain
