@@ -9,10 +9,10 @@ services:
     volumes:
       - mongo-data:/data/db
 
-  loader:
-    build: ./script
-    depends_on:
-      - mongo
+  # loader:
+  #   build: ./script
+  #   depends_on:
+  #     - mongo
 
 volumes:
   mongo-data:
