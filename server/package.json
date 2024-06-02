@@ -1,0 +1,39 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "build": "npm install & npm run build-client",
+    "build-client": "cd ./client && npm install && npm run build",
+    "dev-client": "cd ../client && npm run start",
+    "dev-server": "nodemon index.js",
+    "dev": "concurrently 'npm run dev-client' 'npm run dev-server'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "semantic",
+    "search",
+    "anime"
+  ],
+  "author": "Araon",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.1.2"
+  },
+  "dependencies": {
+    "chromadb": "^1.8.1",
+    "chromadb-default-embed": "^2.13.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-async-errors": "^3.1.1",
+    "express-rate-limit": "^7.3.0",
+    "helmet": "^7.1.0",
+    "mongoose": "^8.4.1",
+    "morgan": "^1.10.0"
+  }
+}
