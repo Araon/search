@@ -11,8 +11,8 @@ import path, { dirname } from "path";
 import { isProd, NODE_ENV, PORT, MONGO_DB_URI } from "./config.js";
 import { errorHandler, unknownEndpoint, limiter } from './utils/middleware.js'
 
-
 import animeRouter from "./routes/anime.routes.js";
+import Chroma from "./utils/chroma.js";
 
 const startServer = async () => {
   const app = express();
@@ -50,12 +50,12 @@ const startServer = async () => {
       },
     })
   );
-  // try {
-  //   await Chroma.initWRetry();
-  // } catch (e) {
-  //   console.log(e);
-  //   console.log(`Could not connect to chromaDB. Err: ${e?.message}`);
-  // }
+  try {
+    await Chroma.initWRetry();
+  } catch (e) {
+    console.log(e);
+    console.log(`Could not connect to chromaDB. Err: ${e?.message}`);
+  }
 
   mongoose
     .connect(MONGO_DB_URI)

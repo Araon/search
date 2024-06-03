@@ -25,6 +25,7 @@
     "nodemon": "^3.1.2"
   },
   "dependencies": {
+    "chroma-js": "^2.4.2",
     "chromadb": "^1.8.1",
     "chromadb-default-embed": "^2.13.2",
     "cors": "^2.8.5",
