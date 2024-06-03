@@ -20,12 +20,12 @@ animeRouter.get("/semantic", async (req, res) => {
     return res.status(200).json({ success: true, animes: [] });
   }
 
-  const cartoons = await AnimeService.semanticSearch(query);
+  const cartoons = await AnimeService.SemanticSearch(query);
   res.status(200).json({ success: true, animes: cartoons });
 });
 
 animeRouter.post("/updateFeed", async (_, res) => {
-  AnimeService.UpdateVectorFromMongo();
+  AnimeService.FeedAnimeToVectorStore();
   res.status(200).json({ success: true });
 });
 
