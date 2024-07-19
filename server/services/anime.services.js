@@ -43,16 +43,19 @@ class AnimeService {
       const distances = results.distances[0];
       // maintain the order of IDs, this is important, also send the score too
       const reorderedNotes = ids.map((id, idx) => {
-        const anime = anime.find((n) => n.id === id);
 
-        return {
-          title: animes?.title,
-          poster: animes?.poster,
-          id: animes?._id?.toString(),
+        const anime = animes.find((n) => n.id === id);
+
+        const response = {
+          title: anime?.title,
+          poster: anime?.poster,
+          id: anime?._id?.toString(),
           distance: distances[idx],
           similarity: 1 / (1 + distances[idx]), // Ref - https://stats.stackexchange.com/questions/53068/euclidean-distance-score-and-similarity
         };
-      });
+
+        return response
+      }).filter((n) => n.title);
       return reorderedNotes;
     }
     return [];
