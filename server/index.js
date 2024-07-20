@@ -8,6 +8,8 @@ import mongoose from "mongoose";
 import { isProd, NODE_ENV, PORT, MONGO_DB_URI } from "./config.js";
 import { errorHandler, unknownEndpoint, limiter } from "./utils/middleware.js";
 
+import path from "path";
+
 import animeRouter from "./routes/anime.routes.js";
 import Chroma from "./utils/chroma.js";
 

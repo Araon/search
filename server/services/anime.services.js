@@ -9,7 +9,7 @@ class AnimeService {
   }
 
   static async FindOne() {
-    return Anime.findOne();
+    return Anime.findOne().select("id title synonyms picture");
   }
 
   static async FuzzySearch(searchString) {
