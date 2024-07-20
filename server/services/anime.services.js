@@ -48,7 +48,7 @@ class AnimeService {
 
         const response = {
           title: anime?.title,
-          poster: anime?.poster,
+          picture: anime?.picture,
           id: anime?._id?.toString(),
           distance: distances[idx],
           similarity: 1 / (1 + distances[idx]), // Ref - https://stats.stackexchange.com/questions/53068/euclidean-distance-score-and-similarity
