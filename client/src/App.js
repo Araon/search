@@ -5,25 +5,24 @@ import { usePostHog } from 'posthog-js/react'
 
 const SUGGESTIONS = {
     BORING: [
-        'Legacy of the Yakuza',
-        'Kimi no Sagashimono',
-        'Kaiju no Tatakai',
-        'Saru no Hoshi',
-        'Eikou no Hoshi',
-        'Kumo no Otoko',
+        'Fairy Tail',
+        'Cowboy Bebop',
+        'Detective Conan',
+        'Naruto',
+        'One Piece',
+        'High School DxD',
         'Hoshi no Tabi',
     ],
     COOL: [
-        "Youngest son of a Yakuza family takes over after his father's death.",
-        'A clownfish searches for his lost son.',
-        'A giant lizard monster terrorizes a city.',
-        'Intelligent monkeys take over the world.',
-        "Retired hockey player coaches women's team.",
-        'A man gains powers after a spider bite.',
-        'Astronauts search for a habitable planet.',
+        'Rich girl joins guild with a flying cat and a dragon slayer',
+        'Bounty hunters with a past travel through space.',
+        'Detective is transformed into a child and solves cases',
+        'A ninja dreams of becoming the strongest in his village while confronting his dark past.',
+        'Guy travels to find the ultimate treasure and become the Pirate King.',
+        'A high school student gets involved in the world of devils and angels after being resurrected',
+        'A journey across the stars to discover new planets and civilizations.',
     ],
 }
-
 
 function App() {
     const [loading, setLoading] = React.useState(false)
@@ -72,8 +71,14 @@ function App() {
         : SUGGESTIONS.BORING
 
     return (
-        <div className="mx-auto max-w-[800px] h-screen p-4">
-            <div className="flex gap-2 justify-center">
+        
+        <div className="bg-neutral-950 text-white min-h-screen flex flex-col items-center justify-center">
+                            <h1 className="text-3xl font-semibold py-20">Anime Search</h1>
+
+            
+            <div className="flex gap-2 justify-center mb-4">
+                {/* heading here */}
+
                 <p className="text-base font-semibold">Boring Search</p>
                 <div className="space-x-3">
                     <label
@@ -97,22 +102,22 @@ function App() {
                 </div>
                 <p className="text-base font-semibold">Cool Search</p>
             </div>
-            <div className="w-full justify-center flex gap-2 mt-4 flex-wrap">
+            <div className="w-full flex flex-wrap justify-center gap-2 mt-4 mb-6">
                 {currentSuggestions.map((suggestion) => (
                     <button
                         key={suggestion}
-                        className="px-2 py-1 border border-gray-200 rounded-3xl cursor-pointer hover:bg-gray-100"
+                        className="px-4 py-2 bg-gray-800 border border-gray-700 rounded-full cursor-pointer hover:bg-gray-700 text-sm"
                         onClick={() => {
                             setSearchTerm(suggestion)
                             fetchMovies(suggestion)
                         }}
                     >
-                        <p className="text-xs">{suggestion}</p>
+                        <p>{suggestion}</p>
                     </button>
                 ))}
             </div>
             <form
-                className="flex gap-4 mt-4 mb-4"
+                className="flex gap-4 mb-4"
                 onSubmit={(e) => {
                     e.preventDefault()
                     handleSearch()
@@ -121,13 +126,13 @@ function App() {
                 <input
                     type="text"
                     placeholder="Search..."
-                    className="flex-grow px-6 p-2 border rounded-3xl border-gray-300 focus:outline-none"
+                    className="flex-grow px-6 py-2 bg-gray-800 border rounded-3xl border-gray-700 focus:outline-none text-white"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
                 <button
                     onClick={() => handleSearch()}
-                    className="sm:px-6 px-4 p-2 bg-gradient-to-r rounded-3xl from-blue-500 to-blue-700 text-white font-semibold"
+                    className="sm:px-6 px-4 py-2 bg-gradient-to-r rounded-3xl from-blue-500 to-blue-700 text-white font-semibold"
                 >
                     <span className="sm:block hidden">Search</span>
                     <span className="sm:hidden block">
@@ -142,8 +147,8 @@ function App() {
                       ))
                     : null}
                 {!loading && animes.length
-                    ? animes.map((movie) => (
-                          <MovieCard movie={movie} key={movie.id} />
+                    ? animes.map((anime) => (
+                          <MovieCard anime={anime} key={anime.id} />
                       ))
                     : !loading && (
                           <div>
@@ -161,24 +166,24 @@ function App() {
     )
 }
 
-const MovieCard = ({ movie }) => {
+const MovieCard = ({ anime }) => {
     const [errored, setErrored] = React.useState(false)
     return (
         <div
-            key={movie.id}
-            className="w-[150px] border border-gray-300 p-2 rounded-md shadow-md"
+            key={anime.id}
+            className="w-[150px] border border-gray-700 p-2 rounded-md shadow-md"
         >
             <img
                 src={
-                    errored || !movie.poster
+                    errored || !anime.picture
                         ? 'https://via.placeholder.com/150x210'
-                        : movie.poster
+                        : anime.picture
                 }
-                alt={movie.title}
+                alt={anime.title}
                 className="w-full h-auto rounded-md"
                 onError={() => setErrored(true)}
             />
-            <h3 className="mt-2 font-semibold text-center">{movie.title}</h3>
+            <h3 className="mt-2 font-semibold text-center">{anime.title}</h3>
         </div>
     )
 }
@@ -186,11 +191,11 @@ const MovieCard = ({ movie }) => {
 const MovieSkeletonCard = () => {
     return (
         <div
-            className="w-[150px] border border-gray-300 p-2 pb-4 rounded-md shadow-md animate-pulse"
+            className="w-[150px] border border-gray-700 p-2 pb-4 rounded-md shadow-md animate-pulse"
             style={{ aspectRatio: '150 / 210' }}
         >
-            <div className="w-full h-full bg-gray-200 rounded-md" />
-            <div className="w-3/4 h-2 bg-gray-300 rounded-md mt-2" />
+            <div className="w-full h-full bg-gray-800 rounded-md" />
+            <div className="w-3/4 h-2 bg-gray-700 rounded-md mt-2" />
         </div>
     )
 }

@@ -107,4 +107,4 @@ Thumbs.db
 # python dev
 __pycache__/
 *.pyc
-/dev
+dev
