@@ -1,6 +1,7 @@
 # Semantic Anime Search
 
-[!search.araon.space](./docs/image.png)
+![search.araon.space](./docs/image.png)
+
 
 This project is a demo project on how semantic search works - the data is updated weekly. This is still a wip
 
