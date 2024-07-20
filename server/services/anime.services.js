@@ -21,6 +21,7 @@ class AnimeService {
           { plot: { $regex: searchRegex } },
         ],
       };
+      console.log("Query string", match);
       const results = await Anime.find(match).select(
         "id title synonyms picture"
       );

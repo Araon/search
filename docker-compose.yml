@@ -22,13 +22,13 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
-  mongo:
-    image: mongo:latest
-    container_name: mongo
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongo-data:/data/db
+  # mongo:
+  #   image: mongo:latest
+  #   container_name: mongo
+  #   ports:
+  #     - "27017:27017"
+  #   volumes:
+  #     - mongo-data:/data/db
 
   # loader:
   #   build: ./script
@@ -36,6 +36,6 @@ services:
   #     - mongo
 
 volumes:
-  mongo-data:
+  # mongo-data:
   chroma-data:
     driver: local

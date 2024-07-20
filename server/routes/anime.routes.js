@@ -9,6 +9,8 @@ animeRouter.get("/fuzzy", async (req, res) => {
     const header = await AnimeService.FindOne()
     return res.status(200).json({ success: true, animes: header });
   }
+
+  console.log("Searching for", query);
   
   const cartoons = await AnimeService.FuzzySearch(query);
   res.status(200).json({ success: true, animes: cartoons });
