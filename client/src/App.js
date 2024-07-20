@@ -5,7 +5,7 @@ import { usePostHog } from 'posthog-js/react'
 
 const SUGGESTIONS = {
     BORING: [
-        'Legacy of the Yakuza',
+        'Naruto',
         'Kimi no Sagashimono',
         'Kaiju no Tatakai',
         'Saru no Hoshi',
@@ -142,8 +142,8 @@ function App() {
                       ))
                     : null}
                 {!loading && animes.length
-                    ? animes.map((movie) => (
-                          <MovieCard movie={movie} key={movie.id} />
+                    ? animes.map((anime) => (
+                          <MovieCard anime={anime} key={anime.id} />
                       ))
                     : !loading && (
                           <div>
@@ -161,24 +161,24 @@ function App() {
     )
 }
 
-const MovieCard = ({ movie }) => {
+const MovieCard = ({ anime }) => {
     const [errored, setErrored] = React.useState(false)
     return (
         <div
-            key={movie.id}
+            key={anime.id}
             className="w-[150px] border border-gray-300 p-2 rounded-md shadow-md"
         >
             <img
                 src={
-                    errored || !movie.poster
+                    errored || !anime.picture
                         ? 'https://via.placeholder.com/150x210'
-                        : movie.poster
+                        : anime.picture
                 }
-                alt={movie.title}
+                alt={anime.title}
                 className="w-full h-auto rounded-md"
                 onError={() => setErrored(true)}
             />
-            <h3 className="mt-2 font-semibold text-center">{movie.title}</h3>
+            <h3 className="mt-2 font-semibold text-center">{anime.title}</h3>
         </div>
     )
 }

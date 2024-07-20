@@ -9,7 +9,7 @@ class AnimeService {
   }
 
   static async FindOne() {
-    return Anime.findOne().select("id title synonyms picture");
+    return Anime.findOne();
   }
 
   static async FuzzySearch(searchString) {
@@ -21,7 +21,6 @@ class AnimeService {
           { plot: { $regex: searchRegex } },
         ],
       };
-      console.log("Query string", match);
       const results = await Anime.find(match).select(
         "id title synonyms picture"
       );

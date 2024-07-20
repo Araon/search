@@ -5,11 +5,8 @@ import cors from "cors";
 import helmet from "helmet";
 import mongoose from "mongoose";
 
-import { fileURLToPath } from "url";
-import path, { dirname } from "path";
-
 import { isProd, NODE_ENV, PORT, MONGO_DB_URI } from "./config.js";
-import { errorHandler, unknownEndpoint, limiter } from './utils/middleware.js'
+import { errorHandler, unknownEndpoint, limiter } from "./utils/middleware.js";
 
 import animeRouter from "./routes/anime.routes.js";
 import Chroma from "./utils/chroma.js";
@@ -67,7 +64,8 @@ const startServer = async () => {
     });
 
   app.get("/stats", (_, res) => {
-    res.status(200).json({ message: "ok" });
+    // query the database for the list of collections
+    res.status(200).json({ success: true });
   });
 
   app.use("/api/animes", animeRouter);
@@ -91,4 +89,4 @@ const startServer = async () => {
   });
 };
 
-startServer()
+startServer();
