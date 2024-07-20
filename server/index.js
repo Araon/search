@@ -29,10 +29,10 @@ const startServer = async () => {
       extended: false,
     })
   );
-  //CROS congfig
+  //CROS config
   app.use(
     cors({
-      origin: "http://localhost:3030", // update with react app origin
+      origin: "http://localhost:3030",
       credentials: true,
     })
   );
@@ -47,6 +47,11 @@ const startServer = async () => {
             "https://via.placeholder.com",
             "https://m.media-amazon.com",
             "https://cdn.myanimelist.net",
+            "https://cdn.anisearch.com",
+            "https://cdn.anime-planet.com",
+            "https://media.kitsu.io",
+            "https://media.animevice.com",
+            "https://raw.githubusercontent.com"
           ],
           defaultSrc: ["'self'"],
           connectSrc: ["'self'", "https://us.i.posthog.com"],
@@ -71,7 +76,6 @@ const startServer = async () => {
     });
 
   app.get("/stats", (_, res) => {
-    // query the database for the list of collections
     res.status(200).json({ success: true });
   });
 
@@ -80,11 +84,11 @@ const startServer = async () => {
   if (isProd) {
     console.log("📂 Serving static files");
     // Serve frontend files
-    app.use(express.static(path.join(__dirname, "./client/build"))); // This is according to the docker file and not the current structure
+    app.use(express.static(path.join(__dirname, "./client/build")));
 
     // Catch all other routes and serve frontend
     app.get("*", (_, res) => {
-      res.sendFile(path.join(__dirname, "./client/build/index.html")); // This is according to the docker file and not the current structure
+      res.sendFile(path.join(__dirname, "./client/build/index.html"));
     });
   }
 
