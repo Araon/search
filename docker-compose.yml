@@ -17,7 +17,7 @@ services:
         networks:
             - net
         healthcheck:
-            test: ['CMD', 'curl', '-f', 'http://localhost:8000/docs']
+            test: ['CMD', 'curl', '-f', 'http://chromadb-server:8000/api/v1']
             interval: 30s
             timeout: 10s
             retries: 5
@@ -28,8 +28,6 @@ services:
         depends_on:
             chromadb-server:
                 condition: service_healthy
-        environment:
-            - CHROMA_DB_URI=http://chromadb-server:8000
         networks:
             - net
         platform: linux/x86_64

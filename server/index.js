@@ -8,7 +8,11 @@ import mongoose from "mongoose";
 import { isProd, NODE_ENV, PORT, MONGO_DB_URI } from "./config.js";
 import { errorHandler, unknownEndpoint, limiter } from "./utils/middleware.js";
 
-import path from "path";
+import path, { dirname } from "path";
+import { fileURLToPath } from 'url'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 import animeRouter from "./routes/anime.routes.js";
 import Chroma from "./utils/chroma.js";
@@ -42,6 +46,7 @@ const startServer = async () => {
             "data:",
             "https://via.placeholder.com",
             "https://m.media-amazon.com",
+            "https://cdn.myanimelist.net",
           ],
           defaultSrc: ["'self'"],
           connectSrc: ["'self'", "https://us.i.posthog.com"],
