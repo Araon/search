@@ -73,7 +73,7 @@ function App() {
       <h1 className="text-3xl font-semibold py-20">Anime Search</h1>
 
       <div className="flex gap-2 justify-center mb-4">
-        <p className="text-base font-semibold">Boring Search</p>
+        <p className="text-base font-semibold">Fuzzy Search</p>
         <div className="space-x-3">
           <label
             htmlFor="select1"
@@ -92,7 +92,7 @@ function App() {
             ></div>
           </label>
         </div>
-        <p className="text-base font-semibold">Cool Search</p>
+        <p className="text-base font-semibold">Semantic Search</p>
       </div>
       <div className="w-full flex flex-wrap justify-center gap-2 mt-4 mb-6">
         {currentSuggestions.map((suggestion) => (
