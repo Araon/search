@@ -3,6 +3,12 @@ import requests
 import os
 import json
 
+# load evnironment variables from .env file
+from dotenv import load_dotenv
+load_dotenv(
+    dotenv_path=os.path.join(os.path.dirname(__file__), ".env"),
+)
+
 
 def connect_to_mongo(uri, db_name, collection_name, retries=3):
     client = pymongo.MongoClient(uri)

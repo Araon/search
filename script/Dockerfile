@@ -2,7 +2,9 @@ FROM python:3.9-slim
 
 WORKDIR /app
 
-RUN pip install pymongo requests
+RUN pip3 install pymongo requests python-dotenv
+
+COPY .env .
 
 COPY load_data.py .
 
