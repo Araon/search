@@ -42,11 +42,10 @@ describe('App Component', () => {
   });
 
   it('should update search term when input changes', async () => {
-    const user = userEvent.setup();
     render(<App />);
     const input = screen.getByPlaceholderText('Search...');
 
-    await user.type(input, 'Naruto');
+    await userEvent.type(input, 'Naruto');
 
     expect(input).toHaveValue('Naruto');
   });
@@ -64,13 +63,12 @@ describe('App Component', () => {
       json: async () => ({ animes: mockAnimes }),
     });
 
-    const user = userEvent.setup();
     render(<App />);
     const input = screen.getByPlaceholderText('Search...');
     const searchButton = screen.getByText('Search');
 
-    await user.type(input, 'Naruto');
-    await user.click(searchButton);
+    await userEvent.type(input, 'Naruto');
+    await userEvent.click(searchButton);
 
     await waitFor(() => {
       expect(fetch).toHaveBeenCalledWith('/api/animes/fuzzy?q=Naruto');
@@ -92,15 +90,14 @@ describe('App Component', () => {
       json: async () => ({ animes: mockAnimes }),
     });
 
-    const user = userEvent.setup();
     render(<App />);
     const toggle = screen.getByLabelText('select1');
     const input = screen.getByPlaceholderText('Search...');
     const searchButton = screen.getByText('Search');
 
-    await user.click(toggle);
-    await user.type(input, 'ninja anime');
-    await user.click(searchButton);
+    await userEvent.click(toggle);
+    await userEvent.type(input, 'ninja anime');
+    await userEvent.click(searchButton);
 
     await waitFor(() => {
       expect(fetch).toHaveBeenCalledWith('/api/animes/semantic?q=ninja anime');
@@ -125,13 +122,12 @@ describe('App Component', () => {
       json: async () => ({ animes: mockAnimes }),
     });
 
-    const user = userEvent.setup();
     render(<App />);
     const input = screen.getByPlaceholderText('Search...');
     const searchButton = screen.getByText('Search');
 
-    await user.type(input, 'test');
-    await user.click(searchButton);
+    await userEvent.type(input, 'test');
+    await userEvent.click(searchButton);
 
     await waitFor(() => {
       expect(screen.getByText('Naruto')).toBeInTheDocument();
@@ -147,13 +143,12 @@ describe('App Component', () => {
         )
     );
 
-    const user = userEvent.setup();
     render(<App />);
     const input = screen.getByPlaceholderText('Search...');
     const searchButton = screen.getByText('Search');
 
-    await user.type(input, 'test');
-    await user.click(searchButton);
+    await userEvent.type(input, 'test');
+    await userEvent.click(searchButton);
 
     // Check for skeleton cards
     const skeletons = screen.getAllByText((content, element) => {
@@ -167,13 +162,12 @@ describe('App Component', () => {
       json: async () => ({ animes: [] }),
     });
 
-    const user = userEvent.setup();
     render(<App />);
     const input = screen.getByPlaceholderText('Search...');
     const searchButton = screen.getByText('Search');
 
     await user.type(input, 'nonexistent');
-    await user.click(searchButton);
+    await userEvent.click(searchButton);
 
     await waitFor(() => {
       expect(screen.getByText('No animes found.')).toBeInTheDocument();
@@ -181,7 +175,6 @@ describe('App Component', () => {
   });
 
   it('should update suggestions when toggle is switched', async () => {
-    const user = userEvent.setup();
     render(<App />);
 
     // Initially shows BORING suggestions
@@ -213,11 +206,10 @@ describe('App Component', () => {
       json: async () => ({ animes: mockAnimes }),
     });
 
-    const user = userEvent.setup();
     render(<App />);
     const suggestion = screen.getByText('Naruto');
 
-    await user.click(suggestion);
+    await userEvent.click(suggestion);
 
     await waitFor(() => {
       expect(fetch).toHaveBeenCalled();
@@ -237,12 +229,11 @@ describe('App Component', () => {
       json: async () => ({ animes: mockAnimes }),
     });
 
-    const user = userEvent.setup();
     render(<App />);
     const input = screen.getByPlaceholderText('Search...');
 
-    await user.type(input, 'Naruto');
-    await user.keyboard('{Enter}');
+    await userEvent.type(input, 'Naruto');
+    fireEvent.keyDown(input, { key: 'Enter', code: 'Enter' });
 
     await waitFor(() => {
       expect(fetch).toHaveBeenCalled();
@@ -250,11 +241,10 @@ describe('App Component', () => {
   });
 
   it('should not search when input is empty', async () => {
-    const user = userEvent.setup();
     render(<App />);
     const searchButton = screen.getByText('Search');
 
-    await user.click(searchButton);
+    await userEvent.click(searchButton);
 
     expect(fetch).not.toHaveBeenCalled();
   });
@@ -287,13 +277,12 @@ describe('MovieCard Component', () => {
       json: async () => ({ animes: mockAnimes }),
     });
 
-    const user = userEvent.setup();
     render(<App />);
     const input = screen.getByPlaceholderText('Search...');
     const searchButton = screen.getByText('Search');
 
-    await user.type(input, 'test');
-    await user.click(searchButton);
+    await userEvent.type(input, 'test');
+    await userEvent.click(searchButton);
 
     await waitFor(() => {
       expect(screen.getByText('Naruto')).toBeInTheDocument();
