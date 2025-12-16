@@ -166,7 +166,7 @@ describe('App Component', () => {
     const input = screen.getByPlaceholderText('Search...');
     const searchButton = screen.getByText('Search');
 
-    await user.type(input, 'nonexistent');
+    await userEvent.type(input, 'nonexistent');
     await userEvent.click(searchButton);
 
     await waitFor(() => {
@@ -181,7 +181,7 @@ describe('App Component', () => {
     expect(screen.getByText('Fairy Tail')).toBeInTheDocument();
 
     const toggle = screen.getByLabelText('select1');
-    await user.click(toggle);
+    await userEvent.click(toggle);
 
     // Should show COOL suggestions
     await waitFor(() => {
@@ -233,7 +233,7 @@ describe('App Component', () => {
     const input = screen.getByPlaceholderText('Search...');
 
     await userEvent.type(input, 'Naruto');
-    fireEvent.keyDown(input, { key: 'Enter', code: 'Enter' });
+    fireEvent.submit(input.closest('form'));
 
     await waitFor(() => {
       expect(fetch).toHaveBeenCalled();
