@@ -91,10 +91,12 @@ describe('App Component', () => {
     });
 
     render(<App />);
-    const toggle = screen.getByLabelText('select1');
+    // Find the toggle checkbox by its id (it's hidden with sr-only class)
+    const toggle = document.getElementById('select1');
     const input = screen.getByPlaceholderText('Search...');
     const searchButton = screen.getByText('Search');
 
+    expect(toggle).toBeInTheDocument();
     await userEvent.click(toggle);
     await userEvent.type(input, 'ninja anime');
     await userEvent.click(searchButton);
@@ -150,11 +152,12 @@ describe('App Component', () => {
     await userEvent.type(input, 'test');
     await userEvent.click(searchButton);
 
-    // Check for skeleton cards
-    const skeletons = screen.getAllByText((content, element) => {
-      return element?.className?.includes('animate-pulse');
-    });
-    expect(skeletons.length).toBeGreaterThan(0);
+    // Check for skeleton cards by looking for elements with animate-pulse class
+    // The loading state should show skeleton cards
+    await waitFor(() => {
+      const skeletons = document.querySelectorAll('.animate-pulse');
+      expect(skeletons.length).toBeGreaterThan(0);
+    }, { timeout: 2000 });
   });
 
   it('should display "No animes found" when search returns empty', async () => {
@@ -180,7 +183,9 @@ describe('App Component', () => {
     // Initially shows BORING suggestions
     expect(screen.getByText('Fairy Tail')).toBeInTheDocument();
 
-    const toggle = screen.getByLabelText('select1');
+    // Find the toggle checkbox by its id (it's hidden with sr-only class)
+    const toggle = document.getElementById('select1');
+    expect(toggle).toBeInTheDocument();
     await userEvent.click(toggle);
 
     // Should show COOL suggestions
@@ -289,8 +294,11 @@ describe('MovieCard Component', () => {
     });
 
     // Check that image exists (it will error and show placeholder)
-    const image = screen.getByAltText('Naruto');
-    expect(image).toBeInTheDocument();
+    // Wait for the image to be rendered, then check it exists
+    await waitFor(() => {
+      const image = screen.queryByAltText('Naruto') || document.querySelector('img[alt="Naruto"]');
+      expect(image).toBeTruthy();
+    });
   });
 });
 
